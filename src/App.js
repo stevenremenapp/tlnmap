@@ -74,6 +74,7 @@ export default class App extends Component {
             onViewportChange={viewport => this._onViewportChange(viewport)}
             />
         </div>
+        <div className="menu"></div>
         <Marker latitude={42.414752} longitude={-83.289607} offsetTop={-30}>
           <div style={markerStyle}>You are here</div>
         </Marker>
