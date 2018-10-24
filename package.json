@@ -2,9 +2,11 @@
   "name": "7-map",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://stevenremenapp.github.io/tlnmap",
   "dependencies": {
     "dotenv": "^6.1.0",
     "react": "^16.5.2",
+    "react-burger-menu": "^2.5.4",
     "react-dom": "^16.5.2",
     "react-map-gl": "^3.3.7",
     "react-scripts": "2.0.5"

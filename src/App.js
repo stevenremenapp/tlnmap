@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactMapGL, {NavigationControl, Marker, Popup} from 'react-map-gl';
+import Sidebar from './components/Sidebar';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import './App.css';
 require('dotenv').config();
@@ -63,27 +64,32 @@ export default class App extends Component {
 
   render() {
     return (
-      <ReactMapGL
-        {...this.state.viewport}
-        mapStyle={MAPBOX_STYLE}
-        mapboxApiAccessToken={MAPBOX_TOKEN}
-        onViewportChange={viewport => this._onViewportChange(viewport)}
-        >
-        <div style={navStyle}>
-          <NavigationControl
+      <div id='outer-container'>
+        <Sidebar pageWrapId={ "page-wrap" } />
+        <div id='page-wrap'>
+          <ReactMapGL
+            {...this.state.viewport}
+            mapStyle={MAPBOX_STYLE}
+            mapboxApiAccessToken={MAPBOX_TOKEN}
             onViewportChange={viewport => this._onViewportChange(viewport)}
-            />
+            >
+            <div style={navStyle}>
+              <NavigationControl
+                onViewportChange={viewport => this._onViewportChange(viewport)}
+                />
+            </div>
+            {/* <div className="menu"></div> */}
+            <Marker latitude={42.414752} longitude={-83.289607} offsetTop={-30}>
+              <div style={markerStyle}>You are here</div>
+            </Marker>
+            <Popup latitude={42.414752} longitude={-83.289607} closeButton={true} closeOnClick={true} anchor="top" tipSize={5}>
+              <div>
+                This is the RTDL
+              </div>
+            </Popup>
+            </ReactMapGL>
         </div>
-        <div className="menu"></div>
-        <Marker latitude={42.414752} longitude={-83.289607} offsetTop={-30}>
-          <div style={markerStyle}>You are here</div>
-        </Marker>
-        <Popup latitude={42.414752} longitude={-83.289607} closeButton={true} closeOnClick={true} anchor="top" tipSize={5}>
-          <div>
-            This is the RTDL
-          </div>
-        </Popup>
-        </ReactMapGL>
+        </div>
     );
   }
 }
