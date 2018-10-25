@@ -10,7 +10,9 @@
         "mel": "y",
         "melVisitingPatron": "n",
         "melAvBorrower": "y",
-        "website": "https://btpl.org/"
+        "website": "https://btpl.org/",
+        "tlnProfilePage": "https://tln.lib.mi.us/md/bloo/",
+        "tlnCode": "BLOO76"
     },
     {
         "name": "Redford Township District Library",
@@ -23,7 +25,24 @@
         "mel": "y",
         "melVisitingPatron": "n",
         "melAvBorrower": "y",
-        "website": "http://redfordlibrary.org/"
+        "website": "http://redfordlibrary.org/",
+        "tlnProfilePage": "https://tln.lib.mi.us/md/redf/",
+        "tlnCode": "REDF09"
+    },
+    {
+        "name": "Ferndale Area District Library",
+        "city": "Ferndale",
+        "latitude": 42.460289,
+        "longitude": -83.132285,
+        "sharedSystem": "y",
+        "miLibraryCard": "y",
+        "multi-branch": "n",
+        "mel": "y",
+        "melVisitingPatron": "n",
+        "melAvBorrower": "y",
+        "website": "https://www.ferndalepubliclibrary.org/",
+        "tlnProfilePage": "https://tln.lib.mi.us/md/fern/",
+        "tlnCode": "FERN69"
     },
     {
         "name": "Royal Oak Public Library",
@@ -36,7 +55,9 @@
         "mel": "y",
         "melVisitingPatron": "n",
         "melAvBorrower": "y",
-        "website": "https://www.romi.gov/148/Library"
+        "website": "https://www.romi.gov/148/Library",
+        "tlnProfilePage": "https://tln.lib.mi.us/md/roak/",
+        "tlnCode": "ROAK65"
     },
     {
         "name": "William P. Faust Public Library of Westland",
@@ -49,7 +70,9 @@
         "mel": "y",
         "melVisitingPatron": "n",
         "melAvBorrower": "y",
-        "website": "http://www.westlandlibrary.org/"
+        "website": "http://www.westlandlibrary.org/",
+        "tlnProfilePage": "https://tln.lib.mi.us/md/wtld/",
+        "tlnCode": "WTLD63"
     },
     {
         "name": "Pontiac Public Library",
@@ -62,7 +85,9 @@
         "mel": "y",
         "melVisitingPatron": "n",
         "melAvBorrower": "y",
-        "website": "http://pontiac.lib.mi.us/"
+        "website": "http://pontiac.lib.mi.us/",
+        "tlnProfilePage": "https://tln.lib.mi.us/md/pont/",
+        "tlnCode": "PONT41"
     },
     {
         "name": "Livonia Public Library - Civic Center Library",
@@ -75,7 +100,9 @@
         "mel": "y",
         "melVisitingPatron": "n",
         "melAvBorrower": "y",
-        "website": "http://livoniapubliclibrary.org/"
+        "website": "http://livoniapubliclibrary.org/",
+        "tlnProfilePage": "https://tln.lib.mi.us/md/lvcc/",
+        "tlnCode": "LVCC32"
     },
     {
         "name": "Livonia Public Library - Alfred Noble Branch",
@@ -88,7 +115,9 @@
         "mel": "y",
         "melVisitingPatron": "n",
         "melAvBorrower": "y",
-        "website": "http://livoniapubliclibrary.org/"
+        "website": "http://livoniapubliclibrary.org/",
+        "tlnProfilePage": "https://tln.lib.mi.us/md/livn/",
+        "tlnCode": "LIVN19"
     },
     {
         "name": "Livonia Public Library - Carl Sandburg Branch",
@@ -101,7 +130,9 @@
         "mel": "y",
         "melVisitingPatron": "n",
         "melAvBorrower": "y",
-        "website": "http://livoniapubliclibrary.org/"
+        "website": "http://livoniapubliclibrary.org/",
+        "tlnProfilePage": "https://tln.lib.mi.us/md/livs/",
+        "tlnCode": "LIVS21"
     },
     {
         "name": "Livonia Public Library - Vest Pocket Branch",
@@ -114,7 +145,9 @@
         "mel": "y",
         "melVisitingPatron": "n",
         "melAvBorrower": "y",
-        "website": "http://livoniapubliclibrary.org/"
+        "website": "http://livoniapubliclibrary.org/",
+        "tlnProfilePage": "https://tln.lib.mi.us/md/livv/",
+        "tlnCode": "LIVV35"
     }
 
 ]

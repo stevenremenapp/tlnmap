@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import ReactMapGL, {NavigationControl, Marker, Popup} from 'react-map-gl';
 import Sidebar from './components/Sidebar';
+import MapPin from './components/MapPin';
+import Infowindow from './components/Infowindow';
+import LIBRARIES from './data/libraries.json';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import './App.css';
 require('dotenv').config();
@@ -15,12 +18,12 @@ const navStyle = {
   padding: '10px'
 }
 
-const markerStyle = {
-  position: 'absolute',
-  padding: '5px',
-  background: 'blue',
-  fontSize: '10px'
-}
+// const markerStyle = {
+//   position: 'absolute',
+//   padding: '5px',
+//   background: 'blue',
+//   fontSize: '10px'
+// }
 
 export default class App extends Component {
 
@@ -30,11 +33,14 @@ export default class App extends Component {
       viewport: {
         width: window.innerWidth,
         height: window.innerHeight,
-        longitude: -83.0458,
         latitude: 42.3314,
+        longitude: -83.0458,
         zoom: 11,
-        maxZoom: 16
-      }
+        maxZoom: 17,
+        bearing: 0,
+        pitch: 0
+      },
+      popupInfo: null
     };
     this._resize = this._resize.bind(this);
   }
@@ -62,6 +68,34 @@ export default class App extends Component {
     });
   }
 
+  _renderLibraryMarker = (library, index) => {
+    return (
+      <Marker
+        key={`marker-${index}`}
+        latitude={library.latitude}
+        longitude={library.longitude}
+      >
+      <MapPin size={20} onClick={() => this.setState({popupInfo: library})} />
+      </Marker>
+    );
+  }
+
+  _renderPopup() {
+    const {popupInfo} = this.state;
+
+    return popupInfo && (
+      <Popup
+        tipSize={5}
+        anchor="top"
+        latitude={popupInfo.latitude}
+        longitude={popupInfo.longitude}
+        onClose={() => this.setState({popupInfo: null})}
+      >
+      <Infowindow info={popupInfo} />
+      </Popup>
+    );
+  }
+
   render() {
     return (
       <div id='outer-container'>
@@ -73,20 +107,25 @@ export default class App extends Component {
             mapboxApiAccessToken={MAPBOX_TOKEN}
             onViewportChange={viewport => this._onViewportChange(viewport)}
             >
-            <div style={navStyle}>
+
+            { LIBRARIES.map(this._renderLibraryMarker) }
+
+            {this._renderPopup()}
+
+            <div className="nav" style={navStyle}>
               <NavigationControl
                 onViewportChange={viewport => this._onViewportChange(viewport)}
                 />
             </div>
             {/* <div className="menu"></div> */}
-            <Marker latitude={42.414752} longitude={-83.289607} offsetTop={-30}>
+            {/* <Marker latitude={42.414752} longitude={-83.289607} offsetTop={-30}>
               <div style={markerStyle}>You are here</div>
             </Marker>
             <Popup latitude={42.414752} longitude={-83.289607} closeButton={true} closeOnClick={true} anchor="top" tipSize={5}>
               <div>
                 This is the RTDL
               </div>
-            </Popup>
+            </Popup> */}
             </ReactMapGL>
         </div>
         </div>
