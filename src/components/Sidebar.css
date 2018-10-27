@@ -1,6 +1,6 @@
 /* Position and sizing of burger button */
 .bm-burger-button {
-    position: absolute;
+    position: fixed;
     width: 36px;
     height: 30px;
     right: 36px;
@@ -16,13 +16,15 @@
   
   /* Position and sizing of clickable cross button */
   .bm-cross-button {
-    height: 24px;
-    width: 24px;
+    height: 32px !important;
+    width: 32px !important;
+    right: 32px !important;
   }
   
   /* Color/shape of close button cross */
   .bm-cross {
     background: #bdc3c7;
+    height: 28px !important;
   }
   
   /* General sidebar styles */
@@ -37,7 +39,7 @@
     height: 90% !important;
   }
   
-  /* Individual item */
+  /* Individual items */
   .bm-item {
     display: inline-block;
     color: #b8b7ad;
@@ -45,7 +47,31 @@
     padding: 0.5em;
   }
 
+  h1.bm-item {
+    margin-top: 0;
+  }
+
+  .search-input {
+    margin: 0;
+    width: 215px;
+    margin-bottom: 28px;
+  }
+
+  .library-list:hover {
+    font-weight: bold;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
   /* Added styles */
   .bm-menu-wrap {
       transition: all 0.1s ease 0s !important;
+  }
+
+  /* Media Queries */
+  @media screen and (max-width: 768px) {
+    .bm-burger-button {
+      background: blue;
+      border: 10px solid yellow;
+    }
   }

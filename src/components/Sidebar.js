@@ -1,8 +1,24 @@
 import React from 'react';
 import { slide as Menu } from 'react-burger-menu';
 import './Sidebar.css';
+import LIBRARIES from '../data/libraries.json';
 
 class Sidebar extends React.Component {
+
+    _renderLibraryList = (library, index) => {
+        return (
+            <li
+                key={`library-${index}`}
+                className="library-list"
+                onClick={() => {
+                    this.props.onViewportChange(library);
+                    // this.props.onListClick(library);
+                }}
+            >
+            {`${library.name}`}
+            </li>
+        )
+    }
 
     render() {
         return (
@@ -11,10 +27,9 @@ class Sidebar extends React.Component {
             noOverlay = {true}
             disableOverlayClick
             >
-                <a href='/' id='home' className='menu-item'>Home</a>
-                <a href='/' id='about' className='menu-item'>About</a>
-                <a href='/' id='contact' className='menu-item'>Contact</a>
-                <a href='/' id='settings' className='menu-item'>Settings</a>
+                <h1>Locations</h1>
+                <input type="text" placeholder="Search here" className="search-input"></input>
+                { LIBRARIES.map(this._renderLibraryList) }
             </Menu>
         )
     }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ReactMapGL, {NavigationControl, Marker, Popup} from 'react-map-gl';
+import ReactMapGL, {NavigationControl, Marker, Popup, FlyToInterpolator} from 'react-map-gl';
 import Sidebar from './components/Sidebar';
 import MapPin from './components/MapPin';
 import Infowindow from './components/Infowindow';
@@ -11,20 +11,6 @@ require('dotenv').config();
 const MAPBOX_STYLE = 'mapbox://styles/mapbox/streets-v9';
 const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
-const navStyle = {
-  position: 'absolute',
-  top: 0,
-  left: 0,
-  padding: '10px'
-}
-
-// const markerStyle = {
-//   position: 'absolute',
-//   padding: '5px',
-//   background: 'blue',
-//   fontSize: '10px'
-// }
-
 export default class App extends Component {
 
   constructor(props) {
@@ -33,9 +19,9 @@ export default class App extends Component {
       viewport: {
         width: window.innerWidth,
         height: window.innerHeight,
-        latitude: 42.3314,
-        longitude: -83.0458,
-        zoom: 11,
+        latitude: 42.473091,
+        longitude: -83.221076,
+        zoom: 10,
         maxZoom: 17,
         bearing: 0,
         pitch: 0
@@ -58,6 +44,16 @@ export default class App extends Component {
   _onViewportChange(viewport) {
     this.setState({
       viewport: {...this.state.viewport, ...viewport}
+    });
+  }
+
+  _goToViewport = ({longitude, latitude}) => {
+    this._onViewportChange({
+      longitude,
+      latitude,
+      zoom: 11,
+      transitionInterpolator: new FlyToInterpolator(),
+      transitionDuration: 500
     });
   }
 
@@ -99,7 +95,10 @@ export default class App extends Component {
   render() {
     return (
       <div id='outer-container'>
-        <Sidebar pageWrapId={ "page-wrap" } />
+        <Sidebar
+          pageWrapId={ "page-wrap" }
+          onViewportChange={this._goToViewport}
+        />
         <div id='page-wrap'>
           <ReactMapGL
             {...this.state.viewport}
@@ -112,20 +111,12 @@ export default class App extends Component {
 
             {this._renderPopup()}
 
-            <div className="nav" style={navStyle}>
+            <div className="nav">
               <NavigationControl
                 onViewportChange={viewport => this._onViewportChange(viewport)}
                 />
             </div>
             {/* <div className="menu"></div> */}
-            {/* <Marker latitude={42.414752} longitude={-83.289607} offsetTop={-30}>
-              <div style={markerStyle}>You are here</div>
-            </Marker>
-            <Popup latitude={42.414752} longitude={-83.289607} closeButton={true} closeOnClick={true} anchor="top" tipSize={5}>
-              <div>
-                This is the RTDL
-              </div>
-            </Popup> */}
             </ReactMapGL>
         </div>
         </div>
