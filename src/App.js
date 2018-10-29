@@ -57,6 +57,13 @@ export default class App extends Component {
     });
   }
 
+  _mapClickToCloseInfowindow = (event) => {
+    console.log(event.target.className);
+    if (event.target.className === "overlays") {
+      this.setState({popupInfo: null});
+    }
+  }
+
   _resize() {
     this._onViewportChange({
       width: window.innerWidth,
@@ -111,6 +118,7 @@ export default class App extends Component {
             mapStyle={MAPBOX_STYLE}
             mapboxApiAccessToken={MAPBOX_TOKEN}
             onViewportChange={viewport => this._onViewportChange(viewport)}
+            onClick={event => this._mapClickToCloseInfowindow(event)}
             >
 
             { LIBRARIES.map(this._renderLibraryMarker) }
