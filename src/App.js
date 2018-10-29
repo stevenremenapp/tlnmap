@@ -75,7 +75,7 @@ export default class App extends Component {
         size={20}
         onMouseOver={() => this.setState({popupInfo: library})}
         // onMouseOut={() => this.setState({popupInfo: null})}
-        // onClick={() => this.setState({popupInfo: library})}
+        onClick={() => this.setState({popupInfo: library})}
       />
       </Marker>
     );
