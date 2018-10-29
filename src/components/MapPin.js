@@ -13,12 +13,14 @@ const pinStyle = {
 export default class MapPin extends PureComponent {
     render() {
 
-        const {size = 20, onClick} = this.props;
+        const {size = 20, onMouseOver} = this.props;
 
         return (
             <svg height={size} viewBox='0 0 24 24'
                 style={{...pinStyle, transform: `translate(${-size/2}px,${-size}px)`}}
-                onClick={onClick}
+                // onClick={onClick}
+                onMouseOver={onMouseOver}
+                // onMouseOut={onMouseOut}
                 >
                 <path d={ICON} />
             </svg>

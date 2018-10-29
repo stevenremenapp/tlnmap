@@ -51,7 +51,7 @@ export default class App extends Component {
     this._onViewportChange({
       longitude,
       latitude,
-      zoom: 11,
+      zoom: 14,
       transitionInterpolator: new FlyToInterpolator(),
       transitionDuration: 500
     });
@@ -71,7 +71,12 @@ export default class App extends Component {
         latitude={library.latitude}
         longitude={library.longitude}
       >
-      <MapPin size={20} onClick={() => this.setState({popupInfo: library})} />
+      <MapPin
+        size={20}
+        onMouseOver={() => this.setState({popupInfo: library})}
+        // onMouseOut={() => this.setState({popupInfo: null})}
+        // onClick={() => this.setState({popupInfo: library})}
+      />
       </Marker>
     );
   }
@@ -98,6 +103,7 @@ export default class App extends Component {
         <Sidebar
           pageWrapId={ "page-wrap" }
           onViewportChange={this._goToViewport}
+          onLibraryClick={(library) => this.setState({popupInfo: library})}
         />
         <div id='page-wrap'>
           <ReactMapGL

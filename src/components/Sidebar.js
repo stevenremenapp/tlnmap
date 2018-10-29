@@ -12,7 +12,7 @@ class Sidebar extends React.Component {
                 className="library-list"
                 onClick={() => {
                     this.props.onViewportChange(library);
-                    // this.props.onListClick(library);
+                    this.props.onLibraryClick(library);
                 }}
             >
             {`${library.name}`}
