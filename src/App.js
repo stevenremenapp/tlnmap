@@ -58,7 +58,7 @@ export default class App extends Component {
   }
 
   _mapClickToCloseInfowindow = (event) => {
-    console.log(event.target.className);
+    // console.log(event.target.className);
     if (event.target.className === "overlays") {
       this.setState({popupInfo: null});
     }

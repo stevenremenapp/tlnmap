@@ -5,11 +5,42 @@ import LIBRARIES from '../data/libraries.json';
 
 class Sidebar extends React.Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            libraries: [],
+            results: [],
+            query: ''
+        }
+    }
+
+    componentDidMount() {
+        let libraryStartList = LIBRARIES.map(library => {
+            return library.name;
+        });
+        // console.log(libraryStartList);
+        this.setState({ libraries: libraryStartList });
+        // console.log(this.state.libraries);
+    }
+
+    // _updateQuery = (query) => {
+    //     this.setState({ query: query }, this._submitQuery);
+    // }
+
+    // _submitQuery() {
+    //     if (this.state.query.trim() === '' || this.state.query.trim() === undefined) {
+    //         return this.setState({ results: [] });
+    //     } else {
+    //         return this.setState({  })
+    //     }
+    // }
+
     _renderLibraryList = (library, index) => {
+        // this.state.results.push(library.name);
         return (
             <li
                 key={`library-${index}`}
-                className="library-list"
+                className="library-list-items"
                 onClick={() => {
                     this.props.onViewportChange(library);
                     this.props.onLibraryClick(library);
@@ -27,9 +58,19 @@ class Sidebar extends React.Component {
             noOverlay = {true}
             disableOverlayClick
             >
-                <h1>Locations</h1>
-                <input type="text" placeholder="Search here" className="search-input"></input>
-                { LIBRARIES.map(this._renderLibraryList) }
+                <div className="search-box">
+                    <h1 className="sidebar-header">Locations</h1>
+                    <input
+                        type="text"
+                        placeholder="Search here"
+                        className="search-input"
+                        // value={this.state.query}
+                        // onChange={(event) => this._updateQuery(event.target.value)}
+                    />
+                </div>
+                <div className="library-list">
+                    { LIBRARIES.map(this._renderLibraryList) }
+                </div>
             </Menu>
         )
     }

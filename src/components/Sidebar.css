@@ -40,14 +40,15 @@
   }
   
   /* Individual items */
-  .bm-item {
-    display: inline-block;
+  .library-list-items {
+    display: block;
     color: #b8b7ad;
     text-decoration: none;
     padding: 0.5em;
   }
 
-  h1.bm-item {
+  .sidebar-header {
+    color: #b8b7ad;
     margin-top: 0;
   }
 
@@ -57,7 +58,7 @@
     margin-bottom: 28px;
   }
 
-  .library-list:hover {
+  .library-list-items:hover {
     font-weight: bold;
     text-decoration: underline;
     cursor: pointer;
@@ -69,9 +70,19 @@
   }
 
   /* Media Queries */
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 800px) {
     .bm-burger-button {
       background: blue;
       border: 10px solid yellow;
+    }
+
+    .bm-menu {
+      padding-top: 1.5em;
+    }
+
+    .bm-menu-wrap {
+      height: 30% !important;
+      width: 100% !important;
+      bottom: 0;
     }
   }
