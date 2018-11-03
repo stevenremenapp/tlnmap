@@ -1,55 +1,35 @@
 import React from 'react';
 import { slide as Menu } from 'react-burger-menu';
 import './Sidebar.css';
-import LIBRARIES from '../data/libraries.json';
 
 class Sidebar extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            libraries: [],
-            results: [],
-            query: ''
+            query: ""
         }
     }
 
-    componentDidMount() {
-        let libraryStartList = LIBRARIES.map(library => {
-            return library.name;
-        });
-        // console.log(libraryStartList);
-        this.setState({ libraries: libraryStartList });
-        // console.log(this.state.libraries);
+    _updateQuery = (newQuery) => {
+        this.setState({ query: newQuery });
+        this.props.filterLocations(newQuery);
     }
 
-    // _updateQuery = (query) => {
-    //     this.setState({ query: query }, this._submitQuery);
+    // _renderLibraryList = (library, index) => {
+    //     return (
+    //         <li
+    //             key={`library-${index}`}
+    //             className="library-list-items"
+    //             onClick={() => {
+    //                 this.props.onViewportChange(library);
+    //                 this.props.openInfowindow(library);
+    //             }}
+    //         >
+    //         {`${library.name}`}
+    //         </li>
+    //     )
     // }
-
-    // _submitQuery() {
-    //     if (this.state.query.trim() === '' || this.state.query.trim() === undefined) {
-    //         return this.setState({ results: [] });
-    //     } else {
-    //         return this.setState({  })
-    //     }
-    // }
-
-    _renderLibraryList = (library, index) => {
-        // this.state.results.push(library.name);
-        return (
-            <li
-                key={`library-${index}`}
-                className="library-list-items"
-                onClick={() => {
-                    this.props.onViewportChange(library);
-                    this.props.openInfowindow(library);
-                }}
-            >
-            {`${library.name}`}
-            </li>
-        )
-    }
 
     render() {
         return (
@@ -64,12 +44,29 @@ class Sidebar extends React.Component {
                         type="text"
                         placeholder="Search here"
                         className="search-input"
-                        // value={this.state.query}
-                        // onChange={(event) => this._updateQuery(event.target.value)}
+                        name="filter"
+                        value={this.state.query}
+                        onChange={event => this._updateQuery(event.target.value)}
                     />
                 </div>
                 <div className="library-list">
-                    { LIBRARIES.map(this._renderLibraryList) }
+                    {/* { LIBRARIES.map(this._renderLibraryList) } */}
+                    {this.props.locations &&
+                        this.props.locations.map((library, index) => {
+                            return (
+                                <li
+                                    key={`library-${index}`}
+                                    className="library-list-items"
+                                    onClick={() => {
+                                        this.props.onViewportChange(library);
+                                        this.props.openInfowindow(library);
+                                    }}
+                                >
+                                {`${library.name}`}
+                                </li>
+                            )
+                        })
+                    }
                 </div>
             </Menu>
         )

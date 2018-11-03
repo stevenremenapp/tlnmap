@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {FlyToInterpolator} from 'react-map-gl';
 import Sidebar from './components/Sidebar';
 import Map from './components/Map';
+import LIBRARIES from './data/libraries.json';
 import './App.css';
 
 export default class App extends Component {
@@ -19,10 +20,29 @@ export default class App extends Component {
         bearing: 0,
         pitch: 0
       },
-      popupInfo: null
+      popupInfo: null,
+      all: LIBRARIES,
+      filtered: null
     };
-    // this._resize = this._resize.bind(this);
-   // this._onViewportChange = this._onViewportChange.bind(this);
+  }
+
+  componentDidMount = () => {
+    this.setState({
+      // ...this.state,
+      filtered: this._filterLocations(this.state.all, "")
+    });
+  }
+
+  _updateQuery = (query) => {
+    this.setState({
+      // ...this.state,
+      selectedIndex: null,
+      filtered: this._filterLocations(this.state.all, query)
+    });
+  }
+
+  _filterLocations = (locations, query) => {
+    return locations.filter(location => location.name.toLowerCase().includes(query.toLowerCase()));
   }
 
   _closeInfowindow = () => {
@@ -60,6 +80,8 @@ export default class App extends Component {
           pageWrapId={ "page-wrap" }
           onViewportChange={this._goToViewport}
           openInfowindow={this._openInfowindow.bind(this)}
+          locations={this.state.filtered}
+          filterLocations={this._updateQuery}
         />
         <div id='page-wrap'>
           <Map
