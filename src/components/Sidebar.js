@@ -43,7 +43,7 @@ class Sidebar extends React.Component {
                 className="library-list-items"
                 onClick={() => {
                     this.props.onViewportChange(library);
-                    this.props.onLibraryClick(library);
+                    this.props.openInfowindow(library);
                 }}
             >
             {`${library.name}`}
