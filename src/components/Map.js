@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactMapGL, {NavigationControl, Marker, Popup} from 'react-map-gl';
 import MapPin from './MapPin';
 import Infowindow from './Infowindow';
-import LIBRARIES from '../data/libraries.json';
+// import LIBRARIES from '../data/libraries.json';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import './Map.css';
 require('dotenv').config();
@@ -11,94 +11,113 @@ const MAPBOX_STYLE = 'mapbox://styles/mapbox/streets-v9';
 const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
 export default class Map extends Component {
+  
+  componentDidMount() {
+    window.addEventListener('resize', this._resize.bind(this));
+    // this._resize();
+  }
 
-    componentDidMount() {
-      window.addEventListener('resize', this._resize.bind(this));
-      // this._resize();
-    }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this._resize.bind(this));
+  }
 
-    componentWillUnmount() {
-      window.removeEventListener('resize', this._resize.bind(this));
-    }
+  _onViewportChange = (viewport) => {
+    this.props.onViewportChange(viewport);
+  }
 
-    _onViewportChange = (viewport) => {
-      this.props.onViewportChange(viewport);
-    }
-
-    _mapClickToCloseInfowindow = (event) => {
-      if (event.target.className === "overlays") {
-        this.props.closeInfowindow();
-      }
-    }
-
-    _closeInfowindow = () => {
+  _mapClickToCloseInfowindow = (event) => {
+    if (event.target.className === "overlays") {
       this.props.closeInfowindow();
     }
+  }
 
-    _openInfowindow = (library) => {
-      this.props.openInfowindow(library);
-    }
+  _closeInfowindow = () => {
+    this.props.closeInfowindow();
+  }
 
-    _resize() {
-      this.props.onViewportChange({
-        width: window.innerWidth,
-        height: window.innerHeight
-      });
-    }
+  _openInfowindow = (library) => {
+    this.props.openInfowindow(library);
+  }
 
-    _renderLibraryMarker = (library, index) => {
+  _resize() {
+    this.props.onViewportChange({
+      width: window.innerWidth,
+      height: window.innerHeight
+    });
+  }
+
+  _renderLibraryMarker = (library, index) => {
+    return (
+      <Marker
+        key={`marker-${index}`}
+        latitude={library.latitude}
+        longitude={library.longitude}
+      >
+      <MapPin
+        size={20}
+        onMouseOver={() => this._openInfowindow(library)}
+        // onMouseOut={() => this.setState({popupInfo: null})}
+        onClick={() => this._openInfowindow(library)}
+      />
+      </Marker>
+    );
+  }
+
+  _renderPopup() {
+    const popupInfo = this.props.popupInfo;
+
+    return popupInfo && (
+      <Popup
+        tipSize={5}
+        anchor="top"
+        latitude={popupInfo.latitude}
+        longitude={popupInfo.longitude}
+        onClose={() => this._closeInfowindow()}
+      >
+      <Infowindow info={popupInfo} />
+      </Popup>
+    );
+  }
+
+  render() {
       return (
-        <Marker
-          key={`marker-${index}`}
-          latitude={library.latitude}
-          longitude={library.longitude}
+        <ReactMapGL
+        {...this.props.viewport}
+        mapStyle={MAPBOX_STYLE}
+        mapboxApiAccessToken={MAPBOX_TOKEN}
+        onViewportChange={viewport => this._onViewportChange(viewport)}
+        onClick={event => this._mapClickToCloseInfowindow(event)}
         >
-        <MapPin
-          size={20}
-          onMouseOver={() => this._openInfowindow(library)}
-          // onMouseOut={() => this.setState({popupInfo: null})}
-          onClick={() => this._openInfowindow(library)}
-        />
-        </Marker>
-      );
-    }
 
-    _renderPopup() {
-      const popupInfo = this.props.popupInfo;
+        {/* { LIBRARIES.map(this._renderLibraryMarker) } */}
 
-      return popupInfo && (
-        <Popup
-          tipSize={5}
-          anchor="top"
-          latitude={popupInfo.latitude}
-          longitude={popupInfo.longitude}
-          onClose={() => this._closeInfowindow()}
-        >
-        <Infowindow info={popupInfo} />
-        </Popup>
-      );
-    }
+        {this.props.locations &&
+            this.props.locations.map((library, index) => {
+                return (
+                <Marker
+                  key={`marker-${index}`}
+                  latitude={library.latitude}
+                  longitude={library.longitude}
+                >
+                <MapPin
+                  size={20}
+                  onMouseOver={() => this._openInfowindow(library)}
+                  // onMouseOut={() => this.setState({popupInfo: null})}
+                  onClick={() => this._openInfowindow(library)}
+                />
+                </Marker>
+                )
+            })
+        }
 
-    render() {
-        return (
-          <ReactMapGL
-          {...this.props.viewport}
-          mapStyle={MAPBOX_STYLE}
-          mapboxApiAccessToken={MAPBOX_TOKEN}
-          onViewportChange={viewport => this._onViewportChange(viewport)}
-          onClick={event => this._mapClickToCloseInfowindow(event)}
-          >
+        {this._renderPopup()}
 
-          { LIBRARIES.map(this._renderLibraryMarker) }
-
-          {this._renderPopup()}
-
-          <div className="map-nav">
-            <NavigationControl
-              onViewportChange={viewport => this._onViewportChange(viewport)}
-              />
-          </div>
-          </ReactMapGL>
-        )
-    }
+        <div className="map-nav">
+          <NavigationControl
+            onViewportChange={viewport => this._onViewportChange(viewport)}
+            />
+        </div>
+        </ReactMapGL>
+      )
+  }
 }

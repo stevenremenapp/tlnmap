@@ -16,21 +16,6 @@ class Sidebar extends React.Component {
         this.props.filterLocations(newQuery);
     }
 
-    // _renderLibraryList = (library, index) => {
-    //     return (
-    //         <li
-    //             key={`library-${index}`}
-    //             className="library-list-items"
-    //             onClick={() => {
-    //                 this.props.onViewportChange(library);
-    //                 this.props.openInfowindow(library);
-    //             }}
-    //         >
-    //         {`${library.name}`}
-    //         </li>
-    //     )
-    // }
-
     render() {
         return (
             <Menu
@@ -50,7 +35,6 @@ class Sidebar extends React.Component {
                     />
                 </div>
                 <div className="library-list">
-                    {/* { LIBRARIES.map(this._renderLibraryList) } */}
                     {this.props.locations &&
                         this.props.locations.map((library, index) => {
                             return (

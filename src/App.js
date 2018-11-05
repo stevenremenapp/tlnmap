@@ -41,8 +41,8 @@ export default class App extends Component {
     });
   }
 
-  _filterLocations = (locations, query) => {
-    return locations.filter(location => location.name.toLowerCase().includes(query.toLowerCase()));
+  _filterLocations = (allLocations, query) => {
+    return allLocations.filter(location => location.name.toLowerCase().includes(query.toLowerCase()));
   }
 
   _closeInfowindow = () => {
@@ -90,6 +90,7 @@ export default class App extends Component {
             popupInfo={this.state.popupInfo}
             openInfowindow={this._openInfowindow.bind(this)}
             closeInfowindow={this._closeInfowindow.bind(this)}
+            locations={this.state.filtered}
           ></Map>
         </div>
         </div>
