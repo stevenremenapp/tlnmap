@@ -80,7 +80,8 @@ export default class App extends Component {
           pageWrapId={ "page-wrap" }
           onViewportChange={this._goToViewport}
           openInfowindow={this._openInfowindow.bind(this)}
-          locations={this.state.filtered}
+          allLocations={this.state.all}
+          filteredLocations={this.state.filtered}
           filterLocations={this._updateQuery}
         />
         <div id='page-wrap'>
@@ -90,7 +91,8 @@ export default class App extends Component {
             popupInfo={this.state.popupInfo}
             openInfowindow={this._openInfowindow.bind(this)}
             closeInfowindow={this._closeInfowindow.bind(this)}
-            locations={this.state.filtered}
+            allLocations={this.state.all}
+            filteredLocations={this.state.filtered}
           ></Map>
         </div>
         </div>

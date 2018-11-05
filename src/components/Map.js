@@ -91,8 +91,8 @@ export default class Map extends Component {
 
         {/* { LIBRARIES.map(this._renderLibraryMarker) } */}
 
-        {this.props.locations &&
-            this.props.locations.map((library, index) => {
+        {this.props.filteredLocations &&
+            this.props.filteredLocations.map((library, index) => {
                 return (
                 <Marker
                   key={`marker-${index}`}

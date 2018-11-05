@@ -25,6 +25,10 @@ class Sidebar extends React.Component {
             >
                 <div className="search-box">
                     <h1 className="sidebar-header">Locations</h1>
+                    <p>Now showing
+                    <span> {this.props.filteredLocations ? this.props.filteredLocations.length : 10} </span>
+                    of
+                    <span> {this.props.allLocations.length} libraries</span></p>
                     <input
                         type="text"
                         placeholder="Search here"
@@ -35,8 +39,8 @@ class Sidebar extends React.Component {
                     />
                 </div>
                 <div className="library-list">
-                    {this.props.locations &&
-                        this.props.locations.map((library, index) => {
+                    {this.props.filteredLocations &&
+                        this.props.filteredLocations.map((library, index) => {
                             return (
                                 <li
                                     key={`library-${index}`}
