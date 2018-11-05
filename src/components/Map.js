@@ -31,6 +31,10 @@ export default class Map extends Component {
       }
     }
 
+    _closeInfowindow = () => {
+      this.props.closeInfowindow();
+    }
+
     _openInfowindow = (library) => {
       this.props.openInfowindow(library);
     }
@@ -68,7 +72,7 @@ export default class Map extends Component {
           anchor="top"
           latitude={popupInfo.latitude}
           longitude={popupInfo.longitude}
-          onClose={() => this.setState({popupInfo: null})}
+          onClose={() => this._closeInfowindow()}
         >
         <Infowindow info={popupInfo} />
         </Popup>
