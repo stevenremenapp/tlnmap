@@ -36,7 +36,6 @@ export default class App extends Component {
   _updateQuery = (query) => {
     this.setState({
       // ...this.state,
-      selectedIndex: null,
       filtered: this._filterLocations(this.state.all, query)
     });
   }
@@ -46,12 +45,15 @@ export default class App extends Component {
   }
 
   _closeInfowindow = () => {
+    LIBRARIES.map(library => library.selected = "n");
     this.setState({
       popupInfo: null
     });
   }
 
   _openInfowindow = (library) => {
+    LIBRARIES.map(library => library.selected = "n");
+    library.selected = "y";
     this.setState({
       popupInfo: library
     });

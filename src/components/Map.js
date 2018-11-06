@@ -46,23 +46,6 @@ export default class Map extends Component {
     });
   }
 
-  _renderLibraryMarker = (library, index) => {
-    return (
-      <Marker
-        key={`marker-${index}`}
-        latitude={library.latitude}
-        longitude={library.longitude}
-      >
-      <MapPin
-        size={20}
-        onMouseOver={() => this._openInfowindow(library)}
-        // onMouseOut={() => this.setState({popupInfo: null})}
-        onClick={() => this._openInfowindow(library)}
-      />
-      </Marker>
-    );
-  }
-
   _renderPopup() {
     const popupInfo = this.props.popupInfo;
 
@@ -89,10 +72,9 @@ export default class Map extends Component {
         onClick={event => this._mapClickToCloseInfowindow(event)}
         >
 
-        {/* { LIBRARIES.map(this._renderLibraryMarker) } */}
-
         {this.props.filteredLocations &&
             this.props.filteredLocations.map((library, index) => {
+              console.log(library.selected);
                 return (
                 <Marker
                   key={`marker-${index}`}
@@ -102,8 +84,9 @@ export default class Map extends Component {
                 <MapPin
                   size={20}
                   onMouseOver={() => this._openInfowindow(library)}
-                  // onMouseOut={() => this.setState({popupInfo: null})}
                   onClick={() => this._openInfowindow(library)}
+                  popupInfo={this.props.popupInfo}
+                  fill={(library.selected === "y" ? "red" : "blue")}
                 />
                 </Marker>
                 )
@@ -111,6 +94,8 @@ export default class Map extends Component {
         }
 
         {this._renderPopup()}
+
+        {/* {test()} */}
 
         <div className="map-nav">
           <NavigationControl
