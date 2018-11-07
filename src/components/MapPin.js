@@ -20,6 +20,8 @@ export default class MapPin extends PureComponent {
 
         return (
             <svg height={size} viewBox='0 0 24 24'
+                // if keeping, implement ability to open infowindow with enter key press
+                // tabIndex="0"
                 style={{..._getPinStyle()}}
                 onClick={onClick}
                 onMouseOver={onMouseOver}

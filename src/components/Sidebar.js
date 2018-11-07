@@ -14,6 +14,7 @@ class Sidebar extends React.Component {
     _updateQuery = (newQuery) => {
         this.setState({ query: newQuery });
         this.props.filterLocations(newQuery);
+        console.log(Menu.state.isOpen);
     }
 
     render() {
@@ -25,7 +26,7 @@ class Sidebar extends React.Component {
             >
                 <div className="search-box">
                     <h1 className="sidebar-header">Locations</h1>
-                    <p>Now showing
+                    <p>Now listing
                     <span> {this.props.filteredLocations ? this.props.filteredLocations.length : 10} </span>
                     of
                     <span> {this.props.allLocations.length} libraries</span></p>
@@ -43,6 +44,8 @@ class Sidebar extends React.Component {
                         this.props.filteredLocations.map((library, index) => {
                             return (
                                 <li
+                                    // add onkeypress
+                                    tabIndex="0"
                                     key={`library-${index}`}
                                     className="library-list-items"
                                     onClick={() => {

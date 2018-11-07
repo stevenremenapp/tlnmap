@@ -77,16 +77,15 @@ export default class App extends Component {
 
   render() {
     return (
-      <div id='outer-container'>
+      <div>
         <Sidebar
-          pageWrapId={ "page-wrap" }
+          // pageWrapId={ "page-wrap" }
           onViewportChange={this._goToViewport}
           openInfowindow={this._openInfowindow.bind(this)}
           allLocations={this.state.all}
           filteredLocations={this.state.filtered}
           filterLocations={this._updateQuery}
         />
-        <div id='page-wrap'>
           <Map
             viewport={this.state.viewport}
             onViewportChange={this._onViewportChange.bind(this)}
@@ -96,7 +95,6 @@ export default class App extends Component {
             allLocations={this.state.all}
             filteredLocations={this.state.filtered}
           ></Map>
-        </div>
         </div>
     );
   }

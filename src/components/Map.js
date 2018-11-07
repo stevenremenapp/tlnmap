@@ -65,43 +65,43 @@ export default class Map extends Component {
   render() {
       return (
         <ReactMapGL
-        {...this.props.viewport}
-        mapStyle={MAPBOX_STYLE}
-        mapboxApiAccessToken={MAPBOX_TOKEN}
-        onViewportChange={viewport => this._onViewportChange(viewport)}
-        onClick={event => this._mapClickToCloseInfowindow(event)}
-        >
+          role="application"
+          aria-label="map"
+          tabIndex="0"
+          {...this.props.viewport}
+          mapStyle={MAPBOX_STYLE}
+          mapboxApiAccessToken={MAPBOX_TOKEN}
+          onViewportChange={viewport => this._onViewportChange(viewport)}
+          onClick={event => this._mapClickToCloseInfowindow(event)}
+          >
 
-        {this.props.filteredLocations &&
-            this.props.filteredLocations.map((library, index) => {
-              console.log(library.selected);
-                return (
-                <Marker
-                  key={`marker-${index}`}
-                  latitude={library.latitude}
-                  longitude={library.longitude}
-                >
-                <MapPin
-                  size={20}
-                  onMouseOver={() => this._openInfowindow(library)}
-                  onClick={() => this._openInfowindow(library)}
-                  popupInfo={this.props.popupInfo}
-                  fill={(library.selected === "y" ? "red" : "blue")}
-                />
-                </Marker>
-                )
-            })
-        }
+          {this.props.filteredLocations &&
+              this.props.filteredLocations.map((library, index) => {
+                  return (
+                  <Marker
+                    key={`marker-${index}`}
+                    latitude={library.latitude}
+                    longitude={library.longitude}
+                  >
+                  <MapPin
+                    size={20}
+                    onMouseOver={() => this._openInfowindow(library)}
+                    onClick={() => this._openInfowindow(library)}
+                    popupInfo={this.props.popupInfo}
+                    fill={(library.selected === "y" ? "red" : "blue")}
+                  />
+                  </Marker>
+                  )
+              })
+          }
 
-        {this._renderPopup()}
+          {this._renderPopup()}
 
-        {/* {test()} */}
-
-        <div className="map-nav">
-          <NavigationControl
-            onViewportChange={viewport => this._onViewportChange(viewport)}
-            />
-        </div>
+          <div className="map-nav">
+            <NavigationControl
+              onViewportChange={viewport => this._onViewportChange(viewport)}
+              />
+          </div>
         </ReactMapGL>
       )
   }
