@@ -11,12 +11,8 @@ class Sidebar extends React.Component {
         }
     }
 
-    _handleMenuStateChange = (state) => {
-        this.props.handleMenuStateChange(state);
-    }
-
-    _handleFocusOnMenuOpen = () => {
-        
+    _handleSidebarStateChange = (state) => {
+        this.props.handleSidebarStateChange(state);
     }
 
     _updateQuery = (newQuery) => {
@@ -31,7 +27,7 @@ class Sidebar extends React.Component {
             noOverlay = {true}
             disableOverlayClick
             isOpen={this.props.isOpen}
-            onStateChange={(state) => this._handleMenuStateChange(state)}
+            onStateChange={(state) => this._handleSidebarStateChange(state)}
             >
                 <div className="search-box">
                     <h1 className="sidebar-header">Locations</h1>
@@ -60,6 +56,9 @@ class Sidebar extends React.Component {
                                     className="library-list-items"
                                     onClick={() => {
                                         this.props.onViewportChange(library);
+                                        this.props.openInfowindow(library);
+                                    }}
+                                    onMouseOver={() => {
                                         this.props.openInfowindow(library);
                                     }}
                                 >
