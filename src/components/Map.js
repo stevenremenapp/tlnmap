@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import ReactMapGL, {NavigationControl, Marker, Popup} from 'react-map-gl';
 import MapPin from './MapPin';
 import Infowindow from './Infowindow';
-// import LIBRARIES from '../data/libraries.json';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import './Map.css';
 require('dotenv').config();

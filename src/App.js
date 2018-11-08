@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {FlyToInterpolator} from 'react-map-gl';
 import Sidebar from './components/Sidebar';
 import Map from './components/Map';
-import LIBRARIES from './data/libraries.json';
+// import LIBRARIES from './data/libraries.json';
 import './App.css';
 
 export default class App extends Component {
@@ -22,16 +22,22 @@ export default class App extends Component {
       },
       sidebarOpen: false,
       popupInfo: null,
-      all: LIBRARIES,
+      all: [],
       filtered: null
     };
   }
 
   componentDidMount = () => {
-    this.setState({
-      // ...this.state,
-      filtered: this._filterLocations(this.state.all, "")
-    });
+    fetch('https://api.myjson.com/bins/p8xk6')
+      .then(response => response.json())
+      .then(libraryJSON => this.setState({all: libraryJSON, filtered: libraryJSON }))
+      .catch(error => {
+        alert("Unfortunately there was an error returning the data for this map. Please try again soon.")
+      });
+
+    // this.setState({
+    //   filtered: this._filterLocations(this.state.all, "")
+    // });
   }
 
   _handleSidebarStateChange = (state) => {
@@ -48,7 +54,6 @@ export default class App extends Component {
 
   _updateQuery = (query) => {
     this.setState({
-      // ...this.state,
       filtered: this._filterLocations(this.state.all, query)
     });
   }
@@ -58,14 +63,14 @@ export default class App extends Component {
   }
 
   _closeInfowindow = () => {
-    LIBRARIES.map(library => library.selected = "n");
+    this.state.all.map(library => library.selected = "n");
     this.setState({ popupInfo: null }, function() {
       this._handleInfowindowFocus();
     });
   }
 
   _openInfowindow = (library) => {
-    LIBRARIES.map(library => library.selected = "n");
+    this.state.all.map(library => library.selected = "n");
     library.selected = "y";
     this.setState({ popupInfo: library }, function() {
       this._handleInfowindowFocus();

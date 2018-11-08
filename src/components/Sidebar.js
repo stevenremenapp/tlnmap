@@ -34,7 +34,8 @@ class Sidebar extends React.Component {
                     <p>Now listing
                     <span> {this.props.filteredLocations ? this.props.filteredLocations.length : 10} </span>
                     of
-                    <span> {this.props.allLocations.length} libraries</span></p>
+                    {/* <span> {this.props.allLocations.length} libraries</span></p> */}
+                    <span> 10 libraries</span></p>
                     <input
                         type="text"
                         placeholder="Search here"
