@@ -20,6 +20,7 @@ export default class App extends Component {
         bearing: 0,
         pitch: 0
       },
+      menuOpen: false,
       popupInfo: null,
       all: LIBRARIES,
       filtered: null
@@ -31,6 +32,18 @@ export default class App extends Component {
       // ...this.state,
       filtered: this._filterLocations(this.state.all, "")
     });
+  }
+
+  _handleMenuStateChange = (state) => {
+    this.setState({ menuOpen: state.isOpen }, function() {
+      this._handleMenuFocus();
+    });
+  }
+
+  _handleMenuFocus = () => {
+    if (this.state.menuOpen === true) {
+      document.getElementById('search-input').focus();
+  }
   }
 
   _updateQuery = (query) => {
@@ -46,17 +59,13 @@ export default class App extends Component {
 
   _closeInfowindow = () => {
     LIBRARIES.map(library => library.selected = "n");
-    this.setState({
-      popupInfo: null
-    });
+    this.setState({ popupInfo: null });
   }
 
   _openInfowindow = (library) => {
     LIBRARIES.map(library => library.selected = "n");
     library.selected = "y";
-    this.setState({
-      popupInfo: library
-    });
+    this.setState({ popupInfo: library });
   }
 
   _onViewportChange = (viewport) => {
@@ -71,7 +80,7 @@ export default class App extends Component {
       latitude,
       zoom: 14,
       transitionInterpolator: new FlyToInterpolator(),
-      transitionDuration: 500
+      transitionDuration: 1000
     });
   }
 
@@ -79,12 +88,13 @@ export default class App extends Component {
     return (
       <div>
         <Sidebar
-          // pageWrapId={ "page-wrap" }
           onViewportChange={this._goToViewport}
           openInfowindow={this._openInfowindow.bind(this)}
           allLocations={this.state.all}
           filteredLocations={this.state.filtered}
           filterLocations={this._updateQuery}
+          isOpen={this.state.menuOpen}
+          handleMenuStateChange={this._handleMenuStateChange.bind(this)}
         />
           <Map
             viewport={this.state.viewport}

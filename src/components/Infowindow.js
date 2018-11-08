@@ -10,7 +10,9 @@ export default class Infowindow extends PureComponent {
 
         return (
             <div>
-                <div>
+                <div
+                    tabIndex="0"
+                >
                     {displayName} | {tlnCode} | <a
                         rel="noopener noreferrer"
                         target="_blank"

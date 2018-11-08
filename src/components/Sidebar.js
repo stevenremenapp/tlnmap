@@ -11,10 +11,17 @@ class Sidebar extends React.Component {
         }
     }
 
+    _handleMenuStateChange = (state) => {
+        this.props.handleMenuStateChange(state);
+    }
+
+    _handleFocusOnMenuOpen = () => {
+        
+    }
+
     _updateQuery = (newQuery) => {
         this.setState({ query: newQuery });
         this.props.filterLocations(newQuery);
-        console.log(Menu.state.isOpen);
     }
 
     render() {
@@ -23,6 +30,8 @@ class Sidebar extends React.Component {
             right
             noOverlay = {true}
             disableOverlayClick
+            isOpen={this.props.isOpen}
+            onStateChange={(state) => this._handleMenuStateChange(state)}
             >
                 <div className="search-box">
                     <h1 className="sidebar-header">Locations</h1>
@@ -34,6 +43,7 @@ class Sidebar extends React.Component {
                         type="text"
                         placeholder="Search here"
                         className="search-input"
+                        id="search-input"
                         name="filter"
                         value={this.state.query}
                         onChange={event => this._updateQuery(event.target.value)}

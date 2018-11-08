@@ -66,7 +66,7 @@ export default class Map extends Component {
       return (
         <ReactMapGL
           role="application"
-          aria-label="map"
+          aria-label="map of libraries in The Library Network"
           tabIndex="0"
           {...this.props.viewport}
           mapStyle={MAPBOX_STYLE}
