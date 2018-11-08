@@ -23,7 +23,8 @@ export default class App extends Component {
       sidebarOpen: false,
       popupInfo: null,
       all: [],
-      filtered: null
+      filtered: null,
+      hasError: false
     };
   }
 
@@ -38,6 +39,10 @@ export default class App extends Component {
     // this.setState({
     //   filtered: this._filterLocations(this.state.all, "")
     // });
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true };
   }
 
   _handleSidebarStateChange = (state) => {
@@ -110,6 +115,10 @@ export default class App extends Component {
   }
 
   render() {
+    if (this.state.hasError) {
+      return <h1>Something went wrong!</h1>;
+    }
+    
     return (
       <div>
         <Sidebar
