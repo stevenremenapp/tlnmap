@@ -14,7 +14,6 @@ export default class Map extends Component {
   
   componentDidMount() {
     window.addEventListener('resize', this._resize.bind(this));
-    // this._resize();
   }
 
   componentWillUnmount() {

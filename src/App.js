@@ -59,7 +59,9 @@ export default class App extends Component {
 
   _closeInfowindow = () => {
     LIBRARIES.map(library => library.selected = "n");
-    this.setState({ popupInfo: null });
+    this.setState({ popupInfo: null }, function() {
+      this._handleInfowindowFocus();
+    });
   }
 
   _openInfowindow = (library) => {
@@ -67,11 +69,23 @@ export default class App extends Component {
     library.selected = "y";
     this.setState({ popupInfo: library }, function() {
       this._handleInfowindowFocus();
+      document.querySelector('.mapboxgl-popup-content button').addEventListener("keydown", 
+        function(event) {
+          console.log(event.keyCode);
+          if (event.keyCode === 13) {
+            this._closeInfowindow();
+          }
+      }.bind(this));
     });
   }
 
   _handleInfowindowFocus = () => {
-    document.querySelector('.mapboxgl-popup-content button').focus();
+    if (this.state.popupInfo) {
+      document.querySelector('.mapboxgl-popup-content button').focus();
+    }
+    if (!this.state.popupInfo && this.state.sidebarOpen === true) {
+      document.getElementById('search-input').focus();
+    }
   }
 
   _onViewportChange = (viewport) => {
