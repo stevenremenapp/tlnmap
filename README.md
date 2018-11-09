@@ -1,4 +1,4 @@
-# Udacity FEND Project 7: Map of (selected) libraries in metro-Detroit's The Library Network cooperative
+# Map of (selected) libraries in metro-Detroit's The Library Network cooperative
 
 ## See it Now
 
@@ -6,7 +6,7 @@
 
 ## Introduction
 
-This is the beginning (middle?) of a thing that I wish existed when I started working in [The Library Network (TLN) libraries](https://tln.lib.mi.us/md/). It is a map application that allows users to see selected (for now) libraries within the TLN cooperative. I will expand this map to include all locations and further filtering limiters that would be helpful for library employees to quickly be able to use. This project is built in React and was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). I decided to use the Mapbox API to display the map and Uber's React-map-gl library to help use the Mapbox service within React. I couldn't find an API that would reliably provide the data I wanted (libraries are not super popular on foursquare) so I gathered the data in a JSON file, and used the [myjson API](http://myjson.com/api) to serve it in the app.
+This is a resource that I wish existed when I started working in [The Library Network (TLN) libraries](https://tln.lib.mi.us/md/). It is a map application that allows users to see selected (for now) libraries within the TLN cooperative and filter/search them in the sidebar. I will expand this map to include all locations and further filtering limiters that would be helpful for library employees to quickly be able to use. This project is built in React and was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). I decided to use the Mapbox API to display the map and Uber's React-map-gl library to help use the Mapbox service within React.
 
 ## Instructions to Access this Project
 

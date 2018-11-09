@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {FlyToInterpolator} from 'react-map-gl';
 import Sidebar from './components/Sidebar';
 import Map from './components/Map';
-// import LIBRARIES from './data/libraries.json';
+import LIBRARIES from './data/libraries.json';
 import './App.css';
 
 export default class App extends Component {
@@ -22,7 +22,7 @@ export default class App extends Component {
       },
       sidebarOpen: false,
       popupInfo: null,
-      all: [],
+      all: LIBRARIES,
       filtered: null,
       hasError: false
     };
@@ -33,17 +33,18 @@ export default class App extends Component {
   }
 
   // Retrieve library data and set initial state
-  componentDidMount = () => {
-    fetch('https://api.myjson.com/bins/p8xk6')
-      .then(response => response.json())
-      .then(libraryJSON => this.setState({all: libraryJSON, filtered: libraryJSON }))
-      .catch(error => {
-        alert("Unfortunately there was an error returning the data for this map. Please try again soon.")
-      });
 
-    // this.setState({
-    //   filtered: this._filterLocations(this.state.all, "")
-    // });
+  componentDidMount = () => {
+    this.setState({
+      filtered: this._filterLocations(this.state.all, "")
+    });
+
+    // fetch('https://api.myjson.com/bins/p8xk6')
+    //   .then(response => response.json())
+    //   .then(libraryJSON => this.setState({all: libraryJSON, filtered: libraryJSON }))
+    //   .catch(error => {
+    //     alert("Unfortunately there was an error returning the data for this map. Please try again soon.")
+    //   });
   }
 
   // Error checking for this and child components
