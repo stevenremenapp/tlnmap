@@ -10,19 +10,27 @@ const MAPBOX_STYLE = 'mapbox://styles/mapbox/streets-v9';
 const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
 export default class Map extends Component {
+
+  constructor(props) {
+    super(props);
+    this._resize = this._resize.bind(this);
+  }
   
+  // Attach and remove (below) resize event listener to window to update map/viewport state if user resizes
   componentDidMount() {
-    window.addEventListener('resize', this._resize.bind(this));
+    window.addEventListener('resize', this._resize);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this._resize.bind(this));
+    window.removeEventListener('resize', this._resize);
   }
 
+  // Call to parent viewport change to change viewport state based on current map data
   _onViewportChange = (viewport) => {
     this.props.onViewportChange(viewport);
   }
 
+  // Close infowindow if user clicks outside of infowindow on the map without interacting with map
   _mapClickToCloseInfowindow = (event) => {
     if (event.target.className === "overlays") {
       this.props.closeInfowindow();
@@ -37,6 +45,7 @@ export default class Map extends Component {
     this.props.openInfowindow(library);
   }
 
+  // Update App.js viewport state for new window size if user resizes window
   _resize() {
     this.props.onViewportChange({
       width: window.innerWidth,
@@ -44,6 +53,7 @@ export default class Map extends Component {
     });
   }
 
+  // Render infowindow with correct info
   _renderPopup() {
     const popupInfo = this.props.popupInfo;
 
@@ -62,45 +72,49 @@ export default class Map extends Component {
 
   render() {
       return (
-        <ReactMapGL
+        <main
           role="application"
           aria-label="map of libraries in The Library Network"
           tabIndex="0"
-          {...this.props.viewport}
-          mapStyle={MAPBOX_STYLE}
-          mapboxApiAccessToken={MAPBOX_TOKEN}
-          onViewportChange={viewport => this._onViewportChange(viewport)}
-          onClick={event => this._mapClickToCloseInfowindow(event)}
-          >
+        >
+          <ReactMapGL          
+            {...this.props.viewport}
+            mapStyle={MAPBOX_STYLE}
+            mapboxApiAccessToken={MAPBOX_TOKEN}
+            onViewportChange={viewport => this._onViewportChange(viewport)}
+            onClick={event => this._mapClickToCloseInfowindow(event)}
+            >
 
-          {this.props.filteredLocations &&
-              this.props.filteredLocations.map((library, index) => {
-                  return (
-                  <Marker
-                    key={`marker-${index}`}
-                    latitude={library.latitude}
-                    longitude={library.longitude}
-                  >
-                  <MapPin
-                    size={20}
-                    onMouseOver={() => this._openInfowindow(library)}
-                    onClick={() => this._openInfowindow(library)}
-                    popupInfo={this.props.popupInfo}
-                    fill={(library.selected === "y" ? "red" : "blue")}
-                  />
-                  </Marker>
-                  )
-              })
-          }
+            {this.props.filteredLocations &&
+                this.props.filteredLocations.map((library, index) => {
+                    return (
+                    <Marker
+                      key={`marker-${index}`}
+                      latitude={library.latitude}
+                      longitude={library.longitude}
+                      alt={library.name}
+                    >
+                    <MapPin
+                      size={20}
+                      onMouseOver={() => this._openInfowindow(library)}
+                      onClick={() => this._openInfowindow(library)}
+                      popupInfo={this.props.popupInfo}
+                      fill={(library.selected === "y" ? "red" : "blue")}
+                    />
+                    </Marker>
+                    )
+                })
+            }
 
-          {this._renderPopup()}
+            {this._renderPopup()}
 
-          <div className="map-nav">
-            <NavigationControl
-              onViewportChange={viewport => this._onViewportChange(viewport)}
-              />
-          </div>
-        </ReactMapGL>
+            <div className="map-nav">
+              <NavigationControl
+                onViewportChange={viewport => this._onViewportChange(viewport)}
+                />
+            </div>
+          </ReactMapGL>
+        </main>
       )
   }
 }

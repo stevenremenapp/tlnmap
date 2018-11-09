@@ -26,8 +26,13 @@ export default class App extends Component {
       filtered: null,
       hasError: false
     };
+    this._openInfowindow = this._openInfowindow.bind(this);
+    this._closeInfowindow = this._closeInfowindow.bind(this);
+    this._handleSidebarStateChange = this._handleSidebarStateChange.bind(this);
+    this._onViewportChange = this._onViewportChange.bind(this);
   }
 
+  // Retrieve library data and set initial state
   componentDidMount = () => {
     fetch('https://api.myjson.com/bins/p8xk6')
       .then(response => response.json())
@@ -41,10 +46,12 @@ export default class App extends Component {
     // });
   }
 
+  // Error checking for this and child components
   static getDerivedStateFromError(error) {
     return { hasError: true };
   }
 
+  // Check if sidebar is open and if so move focus into the search input
   _handleSidebarStateChange = (state) => {
     this.setState({ sidebarOpen: state.isOpen }, function() {
       this._handleSidebarFocus();
@@ -57,6 +64,7 @@ export default class App extends Component {
   }
   }
 
+  // Filter locations with each updated query
   _updateQuery = (query) => {
     this.setState({
       filtered: this._filterLocations(this.state.all, query)
@@ -67,6 +75,7 @@ export default class App extends Component {
     return allLocations.filter(location => location.name.toLowerCase().includes(query.toLowerCase()));
   }
 
+  // Return all locations to unselected, close infowindow, and return appropriate focus
   _closeInfowindow = () => {
     this.state.all.map(library => library.selected = "n");
     this.setState({ popupInfo: null }, function() {
@@ -74,6 +83,7 @@ export default class App extends Component {
     });
   }
 
+  // Select appropriate location marker, open infowindow, lock focus on infowindow and allow user to press enter to close infowindow
   _openInfowindow = (library) => {
     this.state.all.map(library => library.selected = "n");
     library.selected = "y";
@@ -81,7 +91,6 @@ export default class App extends Component {
       this._handleInfowindowFocus();
       document.querySelector('.mapboxgl-popup-content button').addEventListener("keydown", 
         function(event) {
-          console.log(event.keyCode);
           if (event.keyCode === 13) {
             this._closeInfowindow();
           }
@@ -89,6 +98,7 @@ export default class App extends Component {
     });
   }
 
+  // Handle infowindow lock focus when open and when closed
   _handleInfowindowFocus = () => {
     if (this.state.popupInfo) {
       document.querySelector('.mapboxgl-popup-content button').focus();
@@ -98,12 +108,14 @@ export default class App extends Component {
     }
   }
 
+  // Update viewport state data when map is changed by user
   _onViewportChange = (viewport) => {
     this.setState({
       viewport: {...this.state.viewport, ...viewport}
     });
 }
 
+  // Zoom into marker when location is selected from sidebar list
   _goToViewport = ({longitude, latitude}) => {
     this._onViewportChange({
       longitude,
@@ -114,6 +126,7 @@ export default class App extends Component {
     });
   }
 
+  // Check for error, then render component
   render() {
     if (this.state.hasError) {
       return <h1>Something went wrong!</h1>;
@@ -123,19 +136,19 @@ export default class App extends Component {
       <div>
         <Sidebar
           onViewportChange={this._goToViewport}
-          openInfowindow={this._openInfowindow.bind(this)}
+          openInfowindow={this._openInfowindow}
           allLocations={this.state.all}
           filteredLocations={this.state.filtered}
           filterLocations={this._updateQuery}
           isOpen={this.state.sidebarOpen}
-          handleSidebarStateChange={this._handleSidebarStateChange.bind(this)}
+          handleSidebarStateChange={this._handleSidebarStateChange}
         />
           <Map
             viewport={this.state.viewport}
-            onViewportChange={this._onViewportChange.bind(this)}
+            onViewportChange={this._onViewportChange}
             popupInfo={this.state.popupInfo}
-            openInfowindow={this._openInfowindow.bind(this)}
-            closeInfowindow={this._closeInfowindow.bind(this)}
+            openInfowindow={this._openInfowindow}
+            closeInfowindow={this._closeInfowindow}
             allLocations={this.state.all}
             filteredLocations={this.state.filtered}
           ></Map>

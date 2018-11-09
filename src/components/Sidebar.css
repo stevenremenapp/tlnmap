@@ -75,17 +75,13 @@
 
   /* Media Queries */
   @media screen and (max-width: 800px) {
-    .bm-burger-button {
-      background: blue;
-      border: 10px solid yellow;
-    }
 
     .bm-menu {
       padding-top: 1.5em;
     }
 
     .bm-menu-wrap {
-      height: 30% !important;
+      height: 35% !important;
       width: 100% !important;
       bottom: 0;
     }

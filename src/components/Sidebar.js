@@ -11,10 +11,12 @@ class Sidebar extends React.Component {
         }
     }
 
+    // Keep track of open/close sidebar state
     _handleSidebarStateChange = (state) => {
         this.props.handleSidebarStateChange(state);
     }
 
+    // Keep track of query in state and run the filter method with each change
     _updateQuery = (newQuery) => {
         this.setState({ query: newQuery });
         this.props.filterLocations(newQuery);
