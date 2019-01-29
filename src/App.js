@@ -15,7 +15,7 @@ export default class App extends Component {
         height: window.innerHeight,
         latitude: 42.473091,
         longitude: -83.221076,
-        zoom: 10,
+        zoom: 9,
         maxZoom: 17,
         bearing: 0,
         pitch: 0
