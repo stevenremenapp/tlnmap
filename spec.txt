@@ -1,0 +1,10 @@
+- Load in the data of all libraries.
+- Decide what info should go into the popup info boxes and create that.
+- Restyle the sidebar and consider creating a homemade solution.
+- Add a limiter section in the sidebar with various checkbox limiters that will affect which libraries show up.
+    - Shared System libraries
+    - MiLibraryCard libraries
+    - MeL libraries
+- Address issues on the Github repo.
+- Send to coworkers at Redford and ask if it's useful & for feedback.
+- Institute feedback and also eventually send to the TLN team and see what they say.
