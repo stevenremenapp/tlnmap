@@ -95,7 +95,7 @@ export default class Map extends Component {
                       alt={library.name}
                     >
                     <MapPin
-                      size={20}
+                      // size={20}
                       onMouseOver={() => this._openInfowindow(library)}
                       onClick={() => this._openInfowindow(library)}
                       popupInfo={this.props.popupInfo}

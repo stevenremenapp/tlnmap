@@ -34,10 +34,10 @@ class Sidebar extends React.Component {
                 <div className="search-box">
                     <h1 className="sidebar-header">Locations</h1>
                     <p>Now listing
-                    <span> {this.props.filteredLocations ? this.props.filteredLocations.length : 10} </span>
+                    <span> {this.props.filteredLocations ? this.props.filteredLocations.length : 97} </span>
                     of
                     {/* <span> {this.props.allLocations.length} libraries</span></p> */}
-                    <span> 10 libraries</span></p>
+                    <span> 97 libraries</span></p>
                     <input
                         type="text"
                         placeholder="Search here"
