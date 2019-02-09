@@ -24,12 +24,15 @@ export default class App extends Component {
       popupInfo: null,
       all: LIBRARIES,
       filtered: null,
+      query: '',
+      reciprocalBorrower: false,
       hasError: false
     };
-    this._openInfowindow = this._openInfowindow.bind(this);
-    this._closeInfowindow = this._closeInfowindow.bind(this);
-    this._handleSidebarStateChange = this._handleSidebarStateChange.bind(this);
-    this._onViewportChange = this._onViewportChange.bind(this);
+    // this._openInfowindow = this._openInfowindow.bind(this);
+    // this._closeInfowindow = this._closeInfowindow.bind(this);
+    // this._handleSidebarStateChange = this._handleSidebarStateChange.bind(this);
+    // this._onViewportChange = this._onViewportChange.bind(this);
+    // this._handleQueryChange = this._handleQueryChange.bind(this);
   }
 
   // Retrieve library data and set initial state
@@ -66,14 +69,43 @@ export default class App extends Component {
   }
 
   // Filter locations with each updated query
-  _updateQuery = (query) => {
+  // _updateQuery = (newQuery, isReciprocalBorrowerChecked) => {
+  //   this.setState({
+  //     filtered: this._filterLocations(this.state.all, newQuery, isReciprocalBorrowerChecked)
+  //   });
+  // }
+
+  _handleQueryChange = (event) => {
+    const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
+    const name = event.target.name;
     this.setState({
-      filtered: this._filterLocations(this.state.all, query)
-    });
+      // query: newQuery,
+      // reciprocalBorrower: isReciprocalBorrowerChecked
+      [name]: value
+    }, () => {
+      console.log(this.state.query);
+      console.log(this.state.reciprocalBorrower);
+      this.setState({
+        filtered: this._filterLocations(this.state.all)
+      })
+    })
   }
 
-  _filterLocations = (allLocations, query) => {
-    return allLocations.filter(location => location.name.toLowerCase().includes(query.toLowerCase()));
+  _filterLocations = (allLocations) => {
+    let query = this.state.query;
+    let rB = this.state.reciprocalBorrower;
+    if (query !== "" && rB) {
+      return allLocations.filter(location => location.name.toLowerCase().includes(query.toLowerCase()) && location.reciprocalBorrower === "y");
+    }
+    if (rB) {
+      return allLocations.filter(location => location.reciprocalBorrower === "y");
+    }
+    if (query !== "") {
+      return allLocations.filter(location => location.name.toLowerCase().includes(query.toLowerCase()));
+    }
+    else {
+      return allLocations;
+    }
   }
 
   // Return all locations to unselected, close infowindow, and return appropriate focus
@@ -140,9 +172,11 @@ export default class App extends Component {
           openInfowindow={this._openInfowindow}
           allLocations={this.state.all}
           filteredLocations={this.state.filtered}
-          filterLocations={this._updateQuery}
           isOpen={this.state.sidebarOpen}
           handleSidebarStateChange={this._handleSidebarStateChange}
+          // filterReciprocal={this._updateReciprocal}
+          query={this.state.query}
+          onQueryChange={this._handleQueryChange}
         />
           <Map
             viewport={this.state.viewport}

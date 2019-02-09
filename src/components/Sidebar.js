@@ -4,22 +4,17 @@ import './Sidebar.css';
 
 class Sidebar extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            query: ""
-        }
+    // Filter libraries based on filter selection
+    _handleCheckboxChange = (checked) => {
+        this.setState({ reciprocalBorrowerChecked: checked });
+        // console.log(event.target.checked);
+        // console.log(this.state.reciprocalBorrowerChecked);
+        this.props.filterReciprocal(checked);
     }
 
     // Keep track of open/close sidebar state
     _handleSidebarStateChange = (state) => {
         this.props.handleSidebarStateChange(state);
-    }
-
-    // Keep track of query in state and run the filter method with each change
-    _updateQuery = (newQuery) => {
-        this.setState({ query: newQuery });
-        this.props.filterLocations(newQuery);
     }
 
     render() {
@@ -39,14 +34,24 @@ class Sidebar extends React.Component {
                     {/* <span> {this.props.allLocations.length} libraries</span></p> */}
                     <span> 97 libraries</span></p>
                     <input
-                        type="text"
+                        type="search"
                         placeholder="Search here"
                         className="search-input"
                         id="search-input"
-                        name="filter"
-                        value={this.state.query}
-                        onChange={event => this._updateQuery(event.target.value)}
+                        name="query"
+                        value={this.props.query}
+                        onChange={this.props.onQueryChange}
                     />
+                    <div className="filter-area">
+                        <label>
+                        <input
+                            type="checkbox"
+                            name="reciprocalBorrower"
+                            onChange={this.props.onQueryChange}
+                        />
+                        Reciprocal Borrowers
+                        </label>
+                    </div>
                 </div>
                 <div className="library-list">
                     {this.props.filteredLocations &&
