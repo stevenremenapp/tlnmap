@@ -51,6 +51,15 @@ class Sidebar extends React.Component {
                         />
                         Reciprocal Borrowers
                         </label>
+                        <br/>
+                        <label>
+                        <input
+                            type="checkbox"
+                            name="sharedSystem"
+                            onChange={this.props.onQueryChange}
+                        />
+                        Shared System
+                        </label>
                     </div>
                 </div>
                 <div className="library-list">

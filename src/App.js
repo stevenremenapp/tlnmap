@@ -24,8 +24,11 @@ export default class App extends Component {
       popupInfo: null,
       all: LIBRARIES,
       filtered: null,
-      query: '',
-      reciprocalBorrower: false,
+      filter: {
+        query: '',
+        reciprocalBorrower: false,
+        sharedSystem: false
+      },
       hasError: false
     };
     // this._openInfowindow = this._openInfowindow.bind(this);
@@ -81,10 +84,12 @@ export default class App extends Component {
     this.setState({
       // query: newQuery,
       // reciprocalBorrower: isReciprocalBorrowerChecked
-      [name]: value
+      // [name]: value
+      filter: {...this.state.filter, [name]: value}
     }, () => {
-      console.log(this.state.query);
-      console.log(this.state.reciprocalBorrower);
+      console.log(this.state.filter);
+      console.log(this.state.filter.reciprocalBorrower);
+      // console.log(this.state.sharedSystem);
       this.setState({
         filtered: this._filterLocations(this.state.all)
       })
@@ -92,21 +97,44 @@ export default class App extends Component {
   }
 
   _filterLocations = (allLocations) => {
-    let query = this.state.query;
-    let rB = this.state.reciprocalBorrower;
-    if (query !== "" && rB) {
-      return allLocations.filter(location => location.name.toLowerCase().includes(query.toLowerCase()) && location.reciprocalBorrower === "y");
+    let filter = this.state.filter;
+    // return allLocations.filter(location =>
+    //   location.name.toLowerCase().includes(filter.query.toLowerCase())
+    //   && location.reciprocalBorrower === filter.reciprocalBorrower)
+    // };
+    let filtered = allLocations.filter(location => {
+      // Check each filter, kick out of array if not meeting requirement
+      if (!location.name.toLowerCase().includes(filter.query.toLowerCase())) {
+        return false;
+      }
+      if (filter.reciprocalBorrower === true && !location.reciprocalBorrower) {
+        return false;
+      }
+      if (filter.sharedSystem === true && !location.sharedSystem) {
+        return false;
+      }
+      return true;
+    });
+    return filtered;
     }
-    if (rB) {
-      return allLocations.filter(location => location.reciprocalBorrower === "y");
-    }
-    if (query !== "") {
-      return allLocations.filter(location => location.name.toLowerCase().includes(query.toLowerCase()));
-    }
-    else {
-      return allLocations;
-    }
-  }
+    // let query = this.state.query;
+    // let rB = this.state.reciprocalBorrower;
+    // let sS = this.state.sharedSystem;
+    // if (query !== "" && rB) {
+    //   return allLocations.filter(location => location.name.toLowerCase().includes(query.toLowerCase()) && location.reciprocalBorrower === "y");
+    // }
+    // if (sS) {
+    //   return allLocations.filter(location => location.sharedSystem === "y");
+    // }
+    // if (rB) {
+    //   return allLocations.filter(location => location.reciprocalBorrower === "y");
+    // }
+    // if (query !== "") {
+    //   return allLocations.filter(location => location.name.toLowerCase().includes(query.toLowerCase()));
+    // }
+    // else {
+    //   return allLocations;
+    // }}
 
   // Return all locations to unselected, close infowindow, and return appropriate focus
   _closeInfowindow = () => {
