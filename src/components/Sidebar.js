@@ -60,6 +60,24 @@ class Sidebar extends React.Component {
                         />
                         Shared System
                         </label>
+                        <br/>
+                        <label>
+                        <input
+                            type="checkbox"
+                            name="miLibraryCard"
+                            onChange={this.props.onQueryChange}
+                        />
+                        MILibraryCard
+                        </label>
+                        <br/>
+                        <label>
+                        <input
+                            type="checkbox"
+                            name="mel"
+                            onChange={this.props.onQueryChange}
+                        />
+                        MeL
+                        </label>
                     </div>
                 </div>
                 <div className="library-list">

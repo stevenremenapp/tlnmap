@@ -27,7 +27,9 @@ export default class App extends Component {
       filter: {
         query: '',
         reciprocalBorrower: false,
-        sharedSystem: false
+        sharedSystem: false,
+        miLibraryCard: false,
+        mel: false
       },
       hasError: false
     };
@@ -107,10 +109,16 @@ export default class App extends Component {
       if (!location.name.toLowerCase().includes(filter.query.toLowerCase())) {
         return false;
       }
-      if (filter.reciprocalBorrower === true && !location.reciprocalBorrower) {
+      if (filter.reciprocalBorrower && !location.reciprocalBorrower) {
         return false;
       }
-      if (filter.sharedSystem === true && !location.sharedSystem) {
+      if (filter.sharedSystem && !location.sharedSystem) {
+        return false;
+      }
+      if (filter.miLibraryCard && !location.miLibraryCard) {
+        return false;
+      }
+      if(filter.mel && !location.mel) {
         return false;
       }
       return true;
