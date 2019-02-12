@@ -2,5 +2,22 @@
     position: absolute;
     top: 0;
     left: 0;
-    padding: 10px;
+    padding: 6px;
+}
+
+/* STYLING OF INFOWINDOW POPUPS */
+.mapboxgl-popup-content {
+    box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.2);
+    padding: 15px 30px 15px 15px;
+}
+
+.service-indicator {
+    position: relative;
+}
+
+.infowindow-icon {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    bottom: 0;
 }
