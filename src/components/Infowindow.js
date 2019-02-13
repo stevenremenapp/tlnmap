@@ -28,7 +28,7 @@ export default class Infowindow extends PureComponent {
                             target="_blank"
                             href={`${info.website}`}
                             >
-                                Website
+                            Website
                             </a>
                     </span>
                     <br />

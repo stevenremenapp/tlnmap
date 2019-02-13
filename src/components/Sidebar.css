@@ -30,15 +30,14 @@
   /* General sidebar styles */
   .bm-menu {
     background: #373a47;
-    padding: 2.5em 1.5em 0;
+    padding: 1.5em 1.5em 0;
     font-size: 1.15em;
   }
   
-  /* Wrapper for item list */
-  .bm-item-list {
-    height: 90% !important;
+  .library-list {
+    overflow-y: scroll;
+    height: 60%;
   }
-  
   /* Individual items */
   .library-list-items {
     display: block;
@@ -49,23 +48,30 @@
 
   .sidebar-header {
     color: #b8b7ad;
-    margin-top: 0;
+    margin: 0;
   }
 
   .search-input {
-    margin: 0;
-    width: 215px;
-    margin-bottom: 28px;
+    margin: 0 0 20px 0;
+    width: 100%;
   }
 
   .search-box {
     color: #b8b7ad;
   }
 
+  .search-box > p {
+    margin: 0.5em 0;
+  }
+
   .filter-area {
     border: 2px solid #b8b7ad;
     margin-bottom: 22px;
     padding: 5px;
+  }
+
+  .filter-area label:hover {
+    cursor: pointer;
   }
 
   .library-list-items:hover {
@@ -87,8 +93,13 @@
     }
 
     .bm-menu-wrap {
-      height: 35% !important;
+      height: 45% !important;
       width: 100% !important;
       bottom: 0;
+    }
+
+    .library-list {
+      overflow-y: scroll;
+      height: 80%;
     }
   }
