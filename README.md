@@ -15,6 +15,19 @@ This is a resource that I wish existed when I started working in [The Library Ne
 - Start the development local server with npm start
 - This map requires a Mapbox API token to function. If you find it's not working for you, please place your own Mapbox token on line 10 of Map.js.
 
+## Feedback!
+
+In an effort to make sure this project is useful to its intended audience (public library employees in The Library Network) I have been soliciting feedback through both pointed and open-ended questions to people who do that work. After the first round of feedback I've learned that the map is useful, but there are some features to be added by request that would make it better (a locate the user feature, placing library addresses in the infowindow, and making reciprocal borrower libraries a different color on the map).
+
+> I would find this useful. When a book isn't available, the first thing a patron asks is if it's available at another library. I have a fair assessment of what libraries are nearby, but your map shows me libraries I might not have thought of. Reciprocal borrowing is the most important information. Maybe important enough to code the pins to be a different color if the library is reciprocal or not. I would like if there was a "find me" option. I don't automatically know where a city is just staring at a map.
+-- Liz, Youth Services Librarian
+
+> I think it could be useful. I can never remember which libraries are not reciprocal, and I find it difficult looking through the long list of places, but with this I can quickly search the library I am looking for in the search bar and tell at a glance, or see a shorter list of just those that are reciprocal. I found it very easy and intuitive. You could put the addresses there, but there are links to the websites, so I don't think it is necessary, especially if you want it cleaner, with just the necessities.
+-- Karen, Youth Services Librarian
+
+> I think it's great and SO USEFUL to me because I know nothing! (She is very new to libraries 🙂).
+-- Hillary, Adult Services Associate
+
 ## Main Resources Used
 
 Constant referencing of [facebook's deeply helpful React documentation.](https://reactjs.org/docs/getting-started.html)
